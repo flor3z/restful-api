@@ -5,21 +5,24 @@ const BookCreate = ({ onCreate }) => {
   const [title, setTitle] = useState('');
 
   const handleChange = (e) => {
-    setTitle(e.target.value);
+    setTitle(e.target.value.trim());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreate(title);
-    setTitle('');
+    if (title.length >= 1) {
+      onCreate(title.trim());
+      setTitle('');
+    }
   };
 
   return (
-    <div className="flex flex-col items-center text-2xl border h-40 bg-zinc-100 border-black rounded shadow-md p-10 mt-10">
+    <div className="flex flex-col items-center mx-auto text-2xl border h-40 max-w-md bg-zinc-100 border-black rounded shadow-md p-10 mt-10 mb-10">
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <label className="text-blue-500">Add New Book</label>
         <div className="bg-white rounded shadow">
           <input
+            required
             className="outline-none ml-1"
             value={title}
             type="text"
