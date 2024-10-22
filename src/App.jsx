@@ -26,11 +26,27 @@ function App() {
     setBooks(updatedBooks);
   };
 
+  const handleEditTitle = (id, newTitle) => {
+    const updatedBooks = books.map((book) => {
+      if (book.id === id) {
+        return { ...book, title: newTitle };
+      } else {
+        return book;
+      }
+    });
+
+    setBooks(updatedBooks);
+  };
+
   return (
     <>
       <div className="flex flex-col bg-orange-200 min-h-screen">
         <BookCreate className="align-center" onCreate={handleCreateBook} />
-        <BookList books={books} deleteBook={handleDelete} />
+        <BookList
+          books={books}
+          deleteBook={handleDelete}
+          onEdit={handleEditTitle}
+        />
       </div>
     </>
   );

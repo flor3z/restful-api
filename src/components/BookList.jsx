@@ -1,9 +1,16 @@
 import React from 'react';
 import BookShow from './BookShow';
 
-const BookList = ({ books, deleteBook }) => {
+const BookList = ({ books, deleteBook, onEdit }) => {
   const bookListDisplay = books.map((book) => {
-    return <BookShow key={book.id} book={book} deleteBook={deleteBook} />;
+    return (
+      <BookShow
+        key={book.id}
+        book={book}
+        deleteBook={deleteBook}
+        onEdit={onEdit}
+      />
+    );
   });
 
   return (
