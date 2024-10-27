@@ -19,14 +19,15 @@ const BookShow = ({ book, deleteBook, onEdit }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between bg-white w-48 h-48 rounded shadow p-2 mb-2">
+    <div className="flex flex-col justify-between bg-white  rounded shadow p-2 mb-2">
+      <img alt="photo" src={`https://picsum.photos/seed/${book.id}/300/200`} />
       <div className="flex justify-between">
         <h3 className="underline font-medium tracking-wider">Book Title</h3>
         <button
-          onClick={handleShowEdit}
-          className="border-green-500 border-solid border-2 rounded px-1 hover:bg-green-500 hover:text-white transition transform duration-100 ease-in-out active:bg-green-600"
+          onClick={handleDeleteClick}
+          className="border-red-300 border-solid border-2 rounded-full px-2 hover:bg-red-300 hover:text-white transition transform duration-100 ease-in-out active:bg-red-400"
         >
-          Edit
+          X
         </button>
       </div>
       {showEdit ? (
@@ -36,10 +37,10 @@ const BookShow = ({ book, deleteBook, onEdit }) => {
       )}
 
       <button
-        onClick={handleDeleteClick}
-        className="border-red-300 border-solid border-2 rounded hover:bg-red-300 hover:text-white transition transform duration-100 ease-in-out active:bg-red-400"
+        onClick={handleShowEdit}
+        className="border-green-500 border-solid border-2 rounded hover:bg-green-500 hover:text-white transition transform duration-100 ease-in-out active:bg-green-600"
       >
-        Delete
+        Edit
       </button>
     </div>
   );

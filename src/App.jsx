@@ -1,23 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BookCreate from './components/BookCreate';
 import BookList from './components/BookList';
+import axios from 'axios';
 
 function App() {
   const [books, setBooks] = useState([]);
 
-  console.log(books);
+  const getBooks = async () => {
+    const response = await axios.get('http://localhost:3001/books');
 
-  const handleCreateBook = (title) => {
-    const newbook = {
-      id: Math.round(Math.random() * 10000),
+    setBooks(response.data);
+  };
+
+  useEffect(() => {
+    getBooks();
+  }, []);
+
+  const handleCreateBook = async (title) => {
+    const response = await axios.post('http://localhost:3001/books', {
       title: title,
-    };
-    const updatedBooks = [...books, newbook];
+    });
+
+    const updatedBooks = [...books, response.data];
 
     setBooks(updatedBooks);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    const response = await axios.delete(`http://localhost:3001/books/${id}`);
+
+    console.log(`delete book with id ${id}`, response);
+
     const updatedBooks = books.filter((book) => {
       if (book.id !== id) {
         return book;
@@ -26,10 +39,16 @@ function App() {
     setBooks(updatedBooks);
   };
 
-  const handleEditTitle = (id, newTitle) => {
+  const handleEditTitle = async (id, newTitle) => {
+    const response = await axios.put(`http://localhost:3001/books/${id}`, {
+      title: newTitle,
+    });
+
+    console.log(response.data);
+
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
-        return { ...book, title: newTitle };
+        return { ...book, ...response.data };
       } else {
         return book;
       }
@@ -40,7 +59,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col bg-orange-200 min-h-screen">
+      <div className="flex flex-col bg-zinc-300 min-h-screen">
         <BookCreate className="align-center" onCreate={handleCreateBook} />
         <BookList
           books={books}

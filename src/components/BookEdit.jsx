@@ -16,9 +16,8 @@ const BookEdit = ({ book, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>New Title</label>
       <input
-        className="rounded shadow"
+        className="rounded shadow outline outline-1 pl-1"
         onChange={handleChange}
         type="text"
         value={editTitleVal}
