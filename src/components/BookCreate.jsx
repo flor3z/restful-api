@@ -1,8 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
+import { useBooks } from '../contexts/BookContext';
 
-const BookCreate = ({ onCreate }) => {
+const BookCreate = () => {
   const [title, setTitle] = useState('');
+
+  const { handleCreateBook } = useBooks();
 
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -11,7 +14,7 @@ const BookCreate = ({ onCreate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.length >= 1) {
-      onCreate(title.trim());
+      handleCreateBook(title.trim());
       setTitle('');
     }
   };
